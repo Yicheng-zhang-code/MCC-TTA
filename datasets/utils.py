@@ -1,6 +1,6 @@
 """
-Latte 数据集工具函数
-简化版本，只保留必要的工具
+Dataset utility functions used by MCC-TTA.
+Only the required helpers are included.
 """
 
 import os

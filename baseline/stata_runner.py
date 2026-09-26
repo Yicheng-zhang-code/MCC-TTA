@@ -1,13 +1,8 @@
 """
 StatA Local Baseline Runner - 联邦对比基线（Local版）
 
-对齐 Latte 论文 Baselines 设计：
-  Local版：每个客户端独立运行 StatA，客户端之间零通信。
-  配置、数据分区、客户端数量、backbone 与 latte_runner.py 完全一致。
-
-参考：
-  Latte 论文: "The local version run the TTA method on each client
-              independently, without sharing any information among them."
+Local StatA baseline: each client runs independently without communication.
+The runner follows the shared baseline data partition and CLI conventions.
 """
 
 import random
@@ -201,10 +196,10 @@ def StatA_solver(query_features, query_labels, clip_prototypes, alpha=1, soft_be
     return y_hat.cpu(), z.cpu()
 
 
-# ==================== 参数解析（与 latte_runner.py 完全一致）====================
+# ==================== Argument parsing ====================
 
 def get_arguments():
-    """Get arguments — 与 latte_runner.py 保持完全一致，便于对比实验。"""
+    """Parse the common baseline evaluation arguments."""
     parser = argparse.ArgumentParser()
     parser.add_argument('--config', dest='config', required=True, 
                         help='settings of StatA on specific dataset in yaml format.')
@@ -230,7 +225,7 @@ def get_arguments():
     return args
 
 
-# ==================== BaseClient（与 latte_runner.py 完全一致）====================
+# ==================== BaseClient ====================
 
 class BaseClient:
     def __init__(self, dataset, clip_weights, args):
@@ -283,7 +278,7 @@ class BaseClient:
         return self.curr_idx >= self.num_samples
 
 
-# ==================== BaseCTTAServer（与 latte_runner.py 完全一致）====================
+# ==================== BaseCTTAServer ====================
 
 class BaseCTTAServer:
     def __init__(self, datasets, clip_weights, args, client_class=BaseClient):
@@ -538,7 +533,7 @@ class StatALocalServer(BaseCTTAServer):
             client.flush_buffer()
 
 
-# ==================== 主函数（与 latte_runner.py 结构完全一致）====================
+# ==================== Main ====================
 
 def main():
     args = get_arguments()
@@ -547,7 +542,7 @@ def main():
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     print(f"Using device: {device}")
 
-    # 加载 CLIP 模型（与 latte_runner.py 完全一致）
+    # Load the configured CLIP backbone.
     result = clip.load(args.backbone, device=device)
     if len(result) == 3:
         clip_model, embed_dim, preprocess = result
@@ -576,13 +571,13 @@ def main():
         print(cfg, "\n")
         args.config = cfg
         
-        # 加载域/corruption 数据（与 latte_runner.py 完全一致）
+        # Load the selected domain or corruption benchmark.
         domain_loaders, classnames, template = build_test_data_loader(
             dataset_name, args.data_root, preprocess, separate_domains=True)
         clip_weights = clip_classifier(classnames, template, clip_model)
             
         if args.separate_domains:
-            # ---- Separate Domain Mode（与 latte_runner.py 完全对齐）----
+            # ---- Separate-domain evaluation ----
             print(f"\n{'='*60}")
             print(f"Evaluating {dataset_name} - Separate Domain Mode [StatA-Local]")
             print(f"{'='*60}\n")
@@ -602,7 +597,7 @@ def main():
                                             cache_dir='./cached_features',
                                             dataset_name=cache_name)
                 
-                # 数据分区（与 latte_runner.py 完全一致）
+                # Partition this domain into client streams.
                 total_samples_domain = len(dataset)
                 samples_per_client = total_samples_domain // args.num_clients
                 from torch.utils.data import Subset
@@ -641,7 +636,7 @@ def main():
             
             if args.wandb:
                 run_name = f"{dataset_name}_stata_local_separate"
-                run = wandb.init(project="Latte-CTTA", config=cfg,
+                run = wandb.init(project="MCC-TTA-Baselines", config=cfg,
                                  group=group_name, name=run_name)
                 for domain_name, res in domain_results.items():
                     wandb.log({f"{dataset_name}/{domain_name}": res['accuracy'] * 100})
@@ -649,7 +644,7 @@ def main():
                 run.finish()
         
         else:
-            # ---- Collaborative Mode（与 latte_runner.py 完全对齐）----
+            # ---- Collaborative evaluation ----
             num_domains = len(domain_loaders)
             total_clients = num_domains * args.num_clients
             print(f"\n{'='*60}")
@@ -694,7 +689,7 @@ def main():
 
             if args.wandb:
                 run_name = f"{dataset_name}_stata_local_collaborative"
-                run = wandb.init(project="Latte-CTTA", config=cfg,
+                run = wandb.init(project="MCC-TTA-Baselines", config=cfg,
                                  group=group_name, name=run_name)
 
             server = StatALocalServer(all_client_datasets, clip_weights, args,

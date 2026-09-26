@@ -1,4 +1,4 @@
-# Latte 数据集
+# Dataset loaders for MCC-TTA.
 from .corruption import CIFAR10CFull, CIFAR100CFull, get_corruption_dataset_class
 from .domainbed import VLCS, TerraIncognita, get_domainbed_dataset_class
 

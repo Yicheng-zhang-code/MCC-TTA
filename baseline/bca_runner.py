@@ -470,7 +470,7 @@ def main():
 
             if args.wandb:
                 run_name = f"{dataset_name}_bca_local_separate"
-                run = wandb.init(project="Latte-CTTA", config=cfg,
+                run = wandb.init(project="MCC-TTA-Baselines", config=cfg,
                                  group=group_name, name=run_name)
                 for domain_name, res in domain_results.items():
                     wandb.log({f"{dataset_name}/{domain_name}": res['accuracy'] * 100})
@@ -519,7 +519,7 @@ def main():
 
             if args.wandb:
                 run_name = f"{dataset_name}_bca_local_collaborative"
-                run = wandb.init(project="Latte-CTTA", config=cfg,
+                run = wandb.init(project="MCC-TTA-Baselines", config=cfg,
                                  group=group_name, name=run_name)
 
             ServerClass = BCAGlobalServer if getattr(args, 'global_mode', False) else BCALocalServer

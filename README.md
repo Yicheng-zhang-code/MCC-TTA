@@ -1,8 +1,6 @@
-# MCC-TTA
+# MCC-TTA: Mitigating Class Confusion for Federated Test-Time Adaptation of Vision-Language Models
 
-Mitigating Class Confusion in Collaborative Test-Time Adaptation.
-
-This repository contains the implementation of **MCC-TTA**, a CLIP-based federated test-time adaptation method for reducing class confusion under domain and corruption shifts. The main method is implemented in `mcc_tta_runner.py`. The runner supports the CLIP backbones `RN50` and `ViT-B/16`; both backbones use the same dataset-specific configuration files.
+This repository contains the official implementation of **MCC-TTA**, accepted to ACCV 2026. MCC-TTA is a CLIP-based federated test-time adaptation method for reducing class confusion under domain and corruption shifts. The main method is implemented in `mcc_tta_runner.py`. The runner supports the CLIP backbones `RN50` and `ViT-B/16`; both backbones use the same dataset-specific configuration files.
 
 ## Log
 
@@ -26,7 +24,7 @@ You can generate the full corruption datasets with the official CIFAR-C generati
 
 ### Data Layout
 
-Arrange the data as follows and pass the parent directory with `--data-root`.
+Arrange the local data as follows and pass the parent directory with `--data-root`. The data itself is not included in this repository.
 
 ```text
 ${data_root}
@@ -61,9 +59,9 @@ We evaluate MCC-TTA under two heterogeneous federated TTA scenarios:
 - Domain shifts: `VLCS`, `TerraIncognita`
 - Corruption shifts: `CIFAR10CFull`, `CIFAR100CFull`
 
-For domain benchmarks, each domain is split into `m = 10` clients, resulting in 40 clients for VLCS and TerraIncognita.
+For each domain benchmark, each of its four domains is split into `m = 10` clients, giving 40 clients per benchmark.
 
-For CIFAR-C benchmarks, each corruption at severity level 5 is split into clients. We use all 19 corruption streams and 60,000 samples per stream, so the full evaluation stream contains `19 x 60000` samples. Unless otherwise specified, CIFAR-10-C uses `m = 10` clients per corruption and CIFAR-100-C uses `m = 3` clients per corruption.
+For CIFAR-C benchmarks, each of the 19 corruption streams at severity level 5 is split into clients. Each stream contains 60,000 samples, for 1,140,000 evaluated samples per benchmark. CIFAR-10-C uses `m = 10` clients per corruption and CIFAR-100-C uses `m = 3` clients per corruption.
 
 Default synchronization frequencies:
 
@@ -182,6 +180,8 @@ MCC-TTA/
 |- requirements.txt
 `- README.md
 ```
+
+The repository contains dataset loader code, not the benchmark data. Dataset files, cached features, and generated experiment results are kept outside GitHub.
 
 ## Notes For GitHub Submission
 

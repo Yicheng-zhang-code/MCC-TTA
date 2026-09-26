@@ -1,7 +1,5 @@
 """
-Latte Runner - 联邦协作测试时适应
-完整融合原始 Latte 代码（Base.py, Latte.py, utils.py）
-参考 TDA runner 的主函数结构
+MCC-TTA runner for federated test-time adaptation.
 """
 
 import random
@@ -20,8 +18,9 @@ import numpy as np
 from torch.utils.data import Subset
 
 """
-Latte: Federated Test-Time Adaptation with CLIP
-支持的数据集：VLCS, TerraIncognita, CIFAR10CFull, CIFAR100CFull
+MCC-TTA: Mitigating Class Confusion for Federated Test-Time Adaptation
+of Vision-Language Models.
+Supported datasets: VLCS, TerraIncognita, CIFAR10CFull, CIFAR100CFull.
 """
 
 from utils import *
@@ -198,7 +197,7 @@ def stratified_nonoverlap_folds(labels, n_splits, seed=0):
     for fold in folds:
         rng.shuffle(fold)
 
-    # Match Latte's behavior: shuffle fold order before assigning folds to corruptions.
+    # Keep the original corruption-fold construction deterministic.
     rng = np.random.RandomState(0)
     folds = list(folds)
     rng.shuffle(folds)
@@ -372,7 +371,7 @@ class BaseCTTAServer:
 # ==================== MCC-TTA Client ====================
 
 class MccTtaClient(BaseClient):
-    """Latte客户端：支持本地内存和外部内存的协作适应"""
+    """MCC-TTA client with local and externally shared memory."""
 
     def __init__(self, dataset, clip_weights, args):
         super(MccTtaClient, self).__init__(dataset, clip_weights, args)
@@ -857,7 +856,7 @@ class MccTtaClient(BaseClient):
 # ==================== MCC-TTA Server ====================
 
 class MccTtaServer(BaseCTTAServer):
-    """Latte服务器：维护全局内存并分发个性化外部内存"""
+    """MCC-TTA server that maintains and distributes shared memory."""
 
     def __init__(self, datasets, clip_weights, args, client_class=MccTtaClient):
         super(MccTtaServer, self).__init__(datasets, clip_weights, args, client_class)
@@ -1115,7 +1114,7 @@ def main():
         date = datetime.now().strftime("%b%d_%H-%M-%S")
         group_name = f"{args.backbone}_{args.datasets}_{date}"
     
-    # Run Latte on each dataset
+    # Run MCC-TTA on each dataset.
     datasets = args.datasets.split('/')
     for dataset_name in datasets:
         print(f"Processing {dataset_name} dataset.")
