@@ -20,6 +20,10 @@ dataset/
 # Local agent/workspace metadata
 .agents/
 
+# Optional rebuttal-only code and external benchmark checkout
+scripts/
+DomainBed/
+
 # OS / editor
 .DS_Store
 Thumbs.db

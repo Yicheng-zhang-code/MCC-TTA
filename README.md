@@ -178,7 +178,6 @@ MCC-TTA/
 |- baseline/
 |- datasets/
 |- clip/
-|- DomainBed/
 |- make_cifar_c.py
 |- requirements.txt
 `- README.md
