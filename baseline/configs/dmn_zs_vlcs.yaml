@@ -1,0 +1,7 @@
+# DMN-ZS Config - VLCS
+
+dmn:
+  share_cache: True
+  memory_size: 15
+  beta: 5.5
+  beta2: 0.2

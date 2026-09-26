@@ -1,0 +1,8 @@
+# BCA Config - TerraIncognita
+# 原论文官方参数（10类）
+bca:
+  threshold1: 0.05
+  init_count1: 70000
+  threshold2: 0.10
+  init_count2: 100
+  batch_size: 1

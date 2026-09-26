@@ -1,0 +1,14 @@
+# Latte Config - TerraIncognita
+
+local:
+  enabled: True
+  shot_capacity: 2
+  alpha: 1.5
+  beta: 35.0
+  gamma: 10.0
+
+global:
+  enabled: True
+  shot_capacity: 20
+  prototype: exp_weighted
+  gamma: 10.0

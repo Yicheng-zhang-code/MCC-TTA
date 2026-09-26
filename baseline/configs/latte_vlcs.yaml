@@ -1,0 +1,14 @@
+# Latte Config - VLCS
+
+local:
+  enabled: True
+  shot_capacity: 15
+  alpha: 0.35
+  beta: 6.0
+  gamma: 6.0
+
+global:
+  enabled: True
+  shot_capacity: 12
+  prototype: exp_weighted
+  gamma: 6.0

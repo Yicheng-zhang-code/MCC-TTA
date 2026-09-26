@@ -1,0 +1,31 @@
+# MCC-TTA Config - CIFAR-10-C
+
+local:
+  enabled: True
+  shot_capacity: 12
+  alpha: 1.0
+  beta: 60.0
+  gamma: 1.5
+
+global:
+  enabled: True
+  shot_capacity: 9
+  prototype: exp_weighted
+  gamma: 1.5
+
+memory_reg:
+  enabled: True
+  use_recon_error: True
+  alpha_H: 0.05
+  alpha_R_text: 0.95
+
+gauss_calib:
+  enabled: True
+  alpha: 0.02
+  sample_threshold: 800
+
+score_corr:
+  enabled: True
+  similarity_threshold: 0.90
+  lambda: 5.0
+  proto_alpha: 0.5

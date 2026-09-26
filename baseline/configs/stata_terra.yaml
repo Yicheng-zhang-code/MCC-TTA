@@ -1,0 +1,9 @@
+# StatA Local Config - TerraIncognita
+
+stata:
+  alpha: 0.001
+  soft_beta: False
+  lambda_y_hat: 8
+  lambda_laplacian: 5
+  n_neighbors: 3
+  max_iter: 10

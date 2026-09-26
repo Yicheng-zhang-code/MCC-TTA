@@ -1,0 +1,8 @@
+# BCA Config - CIFAR-10-C
+# 原论文官方参数
+bca:
+  threshold1: 0.05
+  init_count1: 20000
+  threshold2: 0.65
+  init_count2: 500
+  batch_size: 1

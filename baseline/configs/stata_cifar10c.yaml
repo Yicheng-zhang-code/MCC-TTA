@@ -1,0 +1,9 @@
+# StatA Local Config - CIFAR-10-C
+
+stata:
+  alpha: 0.1
+  soft_beta: False
+  lambda_y_hat: 20
+  lambda_laplacian: 1
+  n_neighbors: 3
+  max_iter: 12

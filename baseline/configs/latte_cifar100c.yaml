@@ -1,0 +1,14 @@
+# Latte Config - CIFAR-100-C
+
+local:
+  enabled: True
+  shot_capacity: 8
+  alpha: 0.7
+  beta: 60.0
+  gamma: 1.5
+
+global:
+  enabled: True
+  shot_capacity: 5
+  prototype: exp_weighted
+  gamma: 1.5

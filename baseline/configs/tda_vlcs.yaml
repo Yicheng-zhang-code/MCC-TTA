@@ -1,0 +1,16 @@
+# TDA Config - VLCS
+
+tda:
+  enabled: True
+  share_cache: True
+  pos_capacity: 15
+  pos_alpha: 0.1
+  pos_beta: 4.0
+  neg_enabled: True
+  neg_capacity: 2
+  neg_alpha: 0.001
+  neg_beta: 1.0
+  entropy_lower: 0.2
+  entropy_upper: 0.5
+  mask_lower: 0.03
+  mask_upper: 1.0

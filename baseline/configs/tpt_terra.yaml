@@ -1,0 +1,18 @@
+# TPT Config - TerraIncognita
+# 对应原论文 TPT (Shu et al., NeurIPS 2022) 超参数设置
+
+tpt:
+  # Prompt 设置
+  n_ctx: 4
+  ctx_init: "a photo of a"
+
+  # 优化设置
+  lr: 5.0e-3
+  tta_steps: 1
+
+  # 增广设置
+  n_views: 64
+  augmix: True
+
+  # 置信样本筛选
+  selection_p: 0.1

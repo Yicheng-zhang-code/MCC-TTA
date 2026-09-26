@@ -1,0 +1,31 @@
+# MCC-TTA Config - TerraIncognita
+
+local:
+  enabled: True
+  shot_capacity: 2
+  alpha: 1.5
+  beta: 35.0
+  gamma: 10.0
+
+global:
+  enabled: True
+  shot_capacity: 20
+  prototype: exp_weighted
+  gamma: 10.0
+
+memory_reg:
+  enabled: True
+  use_recon_error: True
+  alpha_H: 0.1
+  alpha_R_text: 0.9
+
+gauss_calib:
+  enabled: True
+  alpha: 0.001
+  sample_threshold: 700
+
+score_corr:
+  enabled: True
+  similarity_threshold: 0.85
+  lambda: 80.0
+  proto_alpha: 0.05

@@ -1,0 +1,8 @@
+# Zero Config - CIFAR10C
+# 参考：Zero 原论文默认超参数（ICLR 2024）
+# num_views=64, gamma=0.3 与原论文完全一致
+
+zero:
+  num_views: 64    # 每个测试样本生成的增强视图数（原论文默认值）
+  gamma: 0.3       # confidence filter 保留低熵视图的比例（原论文默认值）
+  augmix: True     # 使用 AugMix/ColorJitter 风格增强生成多视图

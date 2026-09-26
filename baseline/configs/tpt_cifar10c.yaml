@@ -1,0 +1,18 @@
+# TPT Config - CIFAR-10-C
+# 对应原论文 TPT (Shu et al., NeurIPS 2022) 超参数设置
+
+tpt:
+  # Prompt 设置
+  n_ctx: 4                  # 可学习 context token 数量
+  ctx_init: "a photo of a" # context 初始化字符串（None 则随机初始化）
+
+  # 优化设置
+  lr: 5.0e-3                # AdamW 学习率（原论文默认）
+  tta_steps: 1              # 每个样本的梯度更新步数（原论文默认 1）
+
+  # 增广设置
+  n_views: 64               # 总视图数（包含1个原图 + 63个增强视图）
+  augmix: True              # 是否使用 ColorJitter 增广
+
+  # 置信样本筛选
+  selection_p: 0.1          # 保留前 10% 低熵视图（原论文默认）

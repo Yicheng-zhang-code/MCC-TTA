@@ -1,0 +1,9 @@
+# StatA Local Config - VLCS
+
+stata:
+  alpha: 4
+  soft_beta: False
+  lambda_y_hat: 1
+  lambda_laplacian: 3
+  n_neighbors: 6
+  max_iter: 12
