@@ -176,6 +176,7 @@ MCC-TTA/
 |- baseline/
 |- datasets/
 |- clip/
+|- scripts/
 |- make_cifar_c.py
 |- requirements.txt
 `- README.md
